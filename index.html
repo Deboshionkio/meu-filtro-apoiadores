@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro Carla 20055 - Vamos Juntos!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Badge Superior Identificador -->
+        <div class="header-logo">
+            <span class="badge-partido">Podemos 20</span>
+        </div>
+
+        <h1>Foto de Apoio</h1>
+        <p>Demonstre seu apoio à <strong>Carla Z. Pereira 20055</strong> para Deputada Estadual! Ajuste sua foto na moldura oficial.</p>
+
+        <!-- Container do Preview -->
+        <div class="preview-container">
+            <canvas id="canvasPreview" width="800" height="800"></canvas>
+            <div id="loading-overlay" class="loading-overlay" style="display: none;">
+                <div class="spinner"></div>
+                <p>Carregando foto...</p>
+            </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="controls">
+            <label for="upload-foto" class="btn-upload">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                Selecionar Minha Foto
+            </label>
+            <input type="file" id="upload-foto" accept="image/*">
+            
+            <div class="zoom-control-wrapper">
+                <span class="zoom-icon">−</span>
+                <input type="range" id="zoom-slider" min="10" max="300" value="100" disabled>
+                <span class="zoom-icon">+</span>
+            </div>
+
+            <button id="btn-download" disabled>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Baixar Foto Pronta
+            </button>
+        </div>
+
+        <footer>
+            <p class="footer-text">Unir para Realizar | Carla Z. Pereira</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
