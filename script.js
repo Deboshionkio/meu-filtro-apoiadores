@@ -2,8 +2,12 @@ const canvas = document.getElementById('canvasPreview');
 const ctx = canvas.getContext('2d');
 const uploadInput = document.getElementById('upload-foto');
 const zoomSlider = document.getElementById('zoom-slider');
+const zoomOutButton = document.getElementById('zoom-out');
+const zoomInButton = document.getElementById('zoom-in');
 const btnDownload = document.getElementById('btn-download');
 const loadingOverlay = document.getElementById('loading-overlay');
+
+const apertureRadius = canvas.width * 0.43;
 
 let userImg = new Image();
 let frameImg = new Image();
@@ -40,19 +44,19 @@ userImg.onload = () => {
     imgState.loaded = true;
     loadingOverlay.style.display = 'none';
     
-    // Configura escala inicial proporcional (Preenchimento inteligente)
-    const scaleX = canvas.width / userImg.width;
-    const scaleY = canvas.height / userImg.height;
+    // Ajusta a foto para preencher apenas a abertura circular da moldura.
+    const apertureDiameter = apertureRadius * 2;
+    const scaleX = apertureDiameter / userImg.width;
+    const scaleY = apertureDiameter / userImg.height;
     imgState.scale = Math.max(scaleX, scaleY);
     
-    imgState.x = (canvas.width - userImg.width * imgState.scale) / 2;
-    imgState.y = (canvas.height - userImg.height * imgState.scale) / 2;
+    centerImage();
 
     zoomSlider.disabled = false;
     btnDownload.disabled = false;
     
     // Define limites dinâmicos para o slider de zoom
-    zoomSlider.min = (imgState.scale * 0.5).toFixed(2);
+    zoomSlider.min = imgState.scale.toFixed(2);
     zoomSlider.max = (imgState.scale * 4.0).toFixed(2);
     zoomSlider.value = imgState.scale.toFixed(2);
 
@@ -69,6 +73,9 @@ function drawCanvas() {
     // 2. Desenha a foto inserida pelo apoiador
     if (imgState.loaded) {
         ctx.save();
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height / 2, apertureRadius, 0, Math.PI * 2);
+        ctx.clip();
         ctx.drawImage(
             userImg, 
             imgState.x, 
@@ -83,21 +90,40 @@ function drawCanvas() {
     ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
 }
 
-// Controle fino do Zoom centralizado
-zoomSlider.addEventListener('input', (e) => {
+function centerImage() {
+    imgState.x = (canvas.width - userImg.width * imgState.scale) / 2;
+    imgState.y = (canvas.height - userImg.height * imgState.scale) / 2;
+}
+
+function setZoom(newScale) {
     if (!imgState.loaded) return;
-    
+
     const oldScale = imgState.scale;
-    const newScale = parseFloat(e.target.value);
-    
+    const clampedScale = Math.min(
+        Math.max(newScale, parseFloat(zoomSlider.min)),
+        parseFloat(zoomSlider.max)
+    );
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    
-    imgState.x = centerX - (centerX - imgState.x) * (newScale / oldScale);
-    imgState.y = centerY - (centerY - imgState.y) * (newScale / oldScale);
-    imgState.scale = newScale;
-    
+
+    imgState.x = centerX - (centerX - imgState.x) * (clampedScale / oldScale);
+    imgState.y = centerY - (centerY - imgState.y) * (clampedScale / oldScale);
+    imgState.scale = clampedScale;
+    zoomSlider.value = clampedScale.toFixed(2);
     drawCanvas();
+}
+
+// Controle fino do Zoom centralizado
+zoomSlider.addEventListener('input', (e) => {
+    setZoom(parseFloat(e.target.value));
+});
+
+zoomOutButton.addEventListener('click', () => {
+    setZoom(imgState.scale - (parseFloat(zoomSlider.max) - parseFloat(zoomSlider.min)) / 20);
+});
+
+zoomInButton.addEventListener('click', () => {
+    setZoom(imgState.scale + (parseFloat(zoomSlider.max) - parseFloat(zoomSlider.min)) / 20);
 });
 
 // Funções para mapear coordenadas de toque e mouse corretamente

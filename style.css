@@ -156,10 +156,20 @@ input[type="file"] {
 }
 
 .zoom-icon {
+    border: 0;
+    background: transparent;
     font-weight: bold;
     color: #6c757d;
     user-select: none;
     font-size: 18px;
+    line-height: 1;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.zoom-icon:hover {
+    color: #007bff;
 }
 
 .zoom-control-wrapper input[type="range"] {

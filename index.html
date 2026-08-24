@@ -35,9 +35,9 @@
             <input type="file" id="upload-foto" accept="image/*">
             
             <div class="zoom-control-wrapper">
-                <span class="zoom-icon">−</span>
-                <input type="range" id="zoom-slider" min="10" max="300" value="100" disabled>
-                <span class="zoom-icon">+</span>
+                <button type="button" class="zoom-icon" id="zoom-out" aria-label="Diminuir zoom">−</button>
+                <input type="range" id="zoom-slider" min="10" max="300" value="100" disabled aria-label="Zoom da foto">
+                <button type="button" class="zoom-icon" id="zoom-in" aria-label="Aumentar zoom">+</button>
             </div>
 
             <button id="btn-download" disabled>
