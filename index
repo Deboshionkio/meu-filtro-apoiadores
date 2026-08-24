@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Perfil - Apoiadores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Crie sua Foto de Apoio!</h1>
+        <p>Demonstre seu apoio gerando uma foto personalizada para suas redes sociais.</p>
+
+        <!-- Container do Preview -->
+        <div class="preview-container">
+            <!-- Canvas invisível ou manipulável que gera o resultado final -->
+            <canvas id="canvasPreview" width="600" height="600"></canvas>
+        </div>
+
+        <!-- Controles -->
+        <div class="controls">
+            <label for="upload-foto" class="btn-upload">Selecionar Minha Foto</label>
+            <input type="file" id="upload-foto" accept="image/*">
+            
+            <div class="zoom-control">
+                <label for="zoom-slider">Zoom:</label>
+                <input type="range" id="zoom-slider" min="10" max="300" value="100" disabled>
+            </div>
+
+            <button id="btn-download" disabled>Baixar Imagem</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

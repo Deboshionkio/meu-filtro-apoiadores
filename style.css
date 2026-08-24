@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.preview-container {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    max-width: 100%;
+    max-height: 100%;
+    background: #fff;
+    cursor: grab;
+}
+
+canvas:active {
+    cursor: grabbing;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Esconde o input nativo feio e estiliza o label como botão */
+input[type="file"] {
+    display: none;
+}
+
+.btn-upload {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-upload:hover {
+    background-color: #0056b3;
+}
+
+.zoom-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.zoom-control input {
+    flex: 1;
+}
+
+#btn-download {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#btn-download:hover {
+    background-color: #218838;
+}
+
+#btn-download:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
